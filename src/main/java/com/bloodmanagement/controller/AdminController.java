@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admins")
 public class AdminController {
 
     private final AdminService adminService;
@@ -19,25 +19,45 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping
-    public List<Admin> getAllAdmins() {
-        return adminService.getAllAdmins();
+    // Get all admins
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Admin>> getAllAdmins() {
+        return ResponseEntity.ok(adminService.getAllAdmins());
     }
 
-    @GetMapping("/{id}")
+    // Get a specific admin by ID
+    @GetMapping("/get/{id}")
     public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
         return adminService.getAdminById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Admin createAdmin(@RequestBody Admin admin) {
-        return adminService.saveAdmin(admin);
+    // Create a new admin
+    @PostMapping("/create")
+    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
+        Admin createdAdmin = adminService.saveAdmin(admin);
+        return ResponseEntity.ok(createdAdmin);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteAdmin(@PathVariable Long id) {
+    // Update an existing admin
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Admin> updateAdmin(@PathVariable Long id, @RequestBody Admin admin) {
+        if (!adminService.getAdminById(id).isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        admin.setId(id);
+        Admin updatedAdmin = adminService.saveAdmin(admin);
+        return ResponseEntity.ok(updatedAdmin);
+    }
+
+    // Delete an admin by ID
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteAdmin(@PathVariable Long id) {
+        if (!adminService.getAdminById(id).isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
         adminService.deleteAdmin(id);
+        return ResponseEntity.noContent().build();
     }
 }
