@@ -1,33 +1,21 @@
-HELP.md
+# Ignore the application.properties file to avoid pushing sensitive data
+src/main/resources/application.properties
+
+# Ignore IDE and build files
+*.class
+*.log
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+*.jar
+*.war
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Ignore Maven and Eclipse files
+.mvn/
 *.iml
-*.ipr
+.idea/
+*.classpath
+*.project
+*.settings/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
