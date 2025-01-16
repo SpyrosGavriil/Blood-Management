@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+// import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,54 +16,58 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @Entity
 @Builder
-@Table(name = "users")
+@Table(name = " user")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue
     private Integer id;
 
-    @Column(name = "political_id", nullable = false)
-    private Integer politicalId;
-
-    @Column(name = "first_name", length = 50, nullable = false)
     private String firstName;
-
-    @Column(name = "last_name", length = 50, nullable = false)
     private String lastName;
-
-    @Column(name = "email", length = 100, nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "username", length = 50, nullable = false, unique = true)
     private String username;
-
-    @Column(name = "password", length = 255, nullable = false)
     private String password;
 
-    @Column(name = "blood_group", length = 5)
-    private String bloodGroup;
+    // @Column(name = "political_id", nullable = false)
+    // private Integer politicalId;
 
-    @Column(name = "is_donor", nullable = false)
-    private Boolean isDonor;
+    // @Column(name = "first_name", length = 50, nullable = false)
+    // private String firstName;
 
-    @Column(name = "last_donation_date")
-    private LocalDate lastDonationDate;
+    // @Column(name = "last_name", length = 50, nullable = false)
+    // private String lastName;
 
-    @Column(name = "age", nullable = false)
-    private Integer age;
+    // @Column(name = "email", length = 100, nullable = false, unique = true)
+    // private String email;
 
-    @Column(name = "gender", length = 10)
-    private String gender;
+    // @Column(name = "username", length = 50, nullable = false, unique = true)
+    // private String username;
 
-    @Column(name = "eligible_to_donate", nullable = false)
-    private Boolean eligibleToDonate;
+    // @Column(name = "password", length = 255, nullable = false)
+    // private String password;
+
+    // @Column(name = "blood_group", length = 5)
+    // private String bloodGroup;
+
+    // @Column(name = "is_donor", nullable = false)
+    // private Boolean isDonor;
+
+    // @Column(name = "last_donation_date")
+    // private LocalDate lastDonationDate;
+
+    // @Column(name = "age", nullable = false)
+    // private Integer age;
+
+    // @Column(name = "gender", length = 10)
+    // private String gender;
+
+    // @Column(name = "eligible_to_donate", nullable = false)
+    // private Boolean eligibleToDonate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false, length = 20)
+    // @Column(name = "role", length = 20)
     private Role role;
 
     @Override

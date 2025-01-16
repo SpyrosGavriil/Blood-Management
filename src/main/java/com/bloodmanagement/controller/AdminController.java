@@ -27,7 +27,7 @@ public class AdminController {
 
     // Get a specific admin by ID
     @GetMapping("/get/{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
+    public ResponseEntity<Admin> getAdminById(@PathVariable Integer id) {
         return adminService.getAdminById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -42,7 +42,7 @@ public class AdminController {
 
     // Update an existing admin
     @PutMapping("/update/{id}")
-    public ResponseEntity<Admin> updateAdmin(@PathVariable Long id, @RequestBody Admin admin) {
+    public ResponseEntity<Admin> updateAdmin(@PathVariable Integer id, @RequestBody Admin admin) {
         if (!adminService.getAdminById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
@@ -53,7 +53,7 @@ public class AdminController {
 
     // Delete an admin by ID
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteAdmin(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAdmin(@PathVariable Integer id) {
         if (!adminService.getAdminById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
