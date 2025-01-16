@@ -25,7 +25,7 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
-    public Optional<Admin> getAdminById(Long id) {
+    public Optional<Admin> getAdminById(Integer id) {
         return adminRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class AdminService {
         return adminRepository.save(admin);
     }
 
-    public void deleteAdmin(Long id) {
+    public void deleteAdmin(Integer id) {
         adminRepository.deleteById(id);
     }
 }
