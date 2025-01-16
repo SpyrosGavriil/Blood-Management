@@ -2,35 +2,78 @@ package com.bloodmanagement.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @Entity
+@Builder
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseUser {
-    
+public class User implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "political_id", nullable = false)
+    private Integer politicalId;
+
+    @Column(name = "first_name", length = 50, nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", length = 50, nullable = false)
+    private String lastName;
+
+    @Column(name = "email", length = 100, nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "username", length = 50, nullable = false, unique = true)
+    private String username;
+
+    @Column(name = "password", length = 255, nullable = false)
+    private String password;
+
     @Column(name = "blood_group", length = 5)
     private String bloodGroup;
-    
-    @Column(name = "is_donor")
-    private Boolean isDonor = false;
-    
+
+    @Column(name = "is_donor", nullable = false)
+    private Boolean isDonor;
+
     @Column(name = "last_donation_date")
     private LocalDate lastDonationDate;
-    
-    @Column(name = "age")
+
+    @Column(name = "age", nullable = false)
     private Integer age;
-    
+
     @Column(name = "gender", length = 10)
     private String gender;
-    
-    @Column(name = "eligible_to_donate")
-    private Boolean eligibleToDonate = true;
-    
+
+    @Column(name = "eligible_to_donate", nullable = false)
+    private Boolean eligibleToDonate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false, length = 20)
+    private Role role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
 }
