@@ -26,6 +26,8 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf.disable()) // Disable CSRF protection
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/v1/auth/**").permitAll()
+                                                .requestMatchers("/api/admins/**").hasRole("ADMIN")
+                                                .requestMatchers("/api/users/**").hasAnyRole("USER", "ADMIN") // Allow both USER and ADMIN roles
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -10,11 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Builder
 @Table(name = "admins")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,35 +27,39 @@ public class Admin implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "political_id", nullable = false)
-    private Integer politicalId;
-
-    @Column(name = "first_name", length = 50, nullable = false)
     private String firstName;
-
-    @Column(name = "last_name", length = 50, nullable = false)
     private String lastName;
-
-    @Column(name = "email", length = 100, nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "username", length = 50, nullable = false, unique = true)
     private String username;
-
-    @Column(name = "password", length = 255, nullable = false)
     private String password;
+    // @Column(name = "political_id", nullable = false)
+    // private Integer politicalId;
 
-    @Column(name = "age", nullable = false)
-    private Integer age;
+    // @Column(name = "first_name", length = 50, nullable = false)
+    // private String firstName;
 
-    @Column(name = "gender", length = 10)
-    private String gender;
+    // @Column(name = "last_name", length = 50, nullable = false)
+    // private String lastName;
 
-    @Column(name = "department", nullable = false, length = 50)
-    private String department;
+    // @Column(name = "email", length = 100, nullable = false, unique = true)
+    // private String email;
 
-    @Column(name = "employee_id", unique = true, length = 20)
-    private String employeeId;
+    // @Column(name = "username", length = 50, nullable = false, unique = true)
+    // private String username;
+
+    // @Column(name = "password", length = 255, nullable = false)
+    // private String password;
+
+    // @Column(name = "age", nullable = false)
+    // private Integer age;
+
+    // @Column(name = "gender", length = 10)
+    // private String gender;
+
+    // @Column(name = "department", nullable = false, length = 50)
+    // private String department;
+
+    // @Column(name = "employee_id", unique = true, length = 20)
+    // private String employeeId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 20)
@@ -61,7 +67,7 @@ public class Admin implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override

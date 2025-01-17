@@ -1,12 +1,13 @@
 package com.bloodmanagement.config;
 
-
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -36,9 +37,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+
         jwt = authHeader.substring(7);
+        String role = jwtService.extractClaim(jwt, claims -> claims.get("role").toString());
+        System.out.println("Extracted Role: " + role);
+        System.out.println("Admin url? " + request.getRequestURI().startsWith("/api/admins"));
+
+        if ("ROLE_USER".equalsIgnoreCase(role) && request.getRequestURI().startsWith("/api/admins")) {
+            throw new AccessDeniedException("Access denied for USER role on ADMIN endpoints");
+        }
         userEmail = jwtService.extractUsername(jwt);
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (userEmail != null &&
+                SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             // Check if token is valid
             if (jwtService.isTokenValid(jwt, userDetails)) {

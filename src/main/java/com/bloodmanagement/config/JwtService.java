@@ -1,6 +1,5 @@
 package com.bloodmanagement.config;
 
-
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
@@ -11,6 +10,9 @@ import java.util.function.Function;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.bloodmanagement.model.Admin;
+import com.bloodmanagement.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -32,7 +34,13 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        Map<String, Object> claims = new HashMap<>();
+        if (userDetails instanceof User) {
+            claims.put("role", "ROLE_" + ((User) userDetails).getRole());
+        } else if (userDetails instanceof Admin) {
+            claims.put("role", "ROLE_" + ((Admin) userDetails).getRole());
+        }
+        return generateToken(claims, userDetails);
     }
 
     public String generateToken(Map<String, Object> extractClaims, UserDetails userDetails) {

@@ -6,11 +6,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.bloodmanagement.repository.AdminRepository;
 import com.bloodmanagement.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,12 +21,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> repository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found."));
+        return username -> {
+            // Check in userRepository first
+            return userRepository.findByUsername(username)
+                    .map(user -> (UserDetails) user) // Ensure User implements UserDetails
+                    .orElseGet(() ->
+            // If not found, check in adminRepository
+            adminRepository.findByUsername(username)
+                    .map(admin -> (UserDetails) admin) // Ensure Admin implements UserDetails
+                    .orElseThrow(() -> new UsernameNotFoundException("User or Admin not found.")));
+        };
     }
 
     @Bean
