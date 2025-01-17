@@ -1,5 +1,7 @@
 package com.bloodmanagement.service;
 
+import com.bloodmanagement.dto.UserDTO;
+import com.bloodmanagement.model.Role;
 import com.bloodmanagement.model.User;
 import com.bloodmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -21,20 +24,47 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    // Get all users and return as UserDTO
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(this::toUserDTO) // Map each User to UserDTO
+                .collect(Collectors.toList());
     }
 
-    public Optional<User> getUserById(Integer id) {
-        return userRepository.findById(id);
+    // Get a user by ID and return as UserDTO
+    public Optional<UserDTO> getUserById(Integer id) {
+        return userRepository.findById(id)
+                .map(this::toUserDTO); // Map User to UserDTO
     }
 
-    public User saveUser(User user) {
+    // Save a user and return as UserDTO
+    public UserDTO saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        user.setRole(Role.USER);
+
+        if (user.getDonor() != null) {
+            user.getDonor().setUser(user);
+        }
+        User savedUser = userRepository.save(user);
+        return toUserDTO(savedUser); // Map the saved User to UserDTO
     }
 
+    // Delete a user by ID
     public void deleteUser(Integer id) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("User not found with ID: " + id);
+        }
         userRepository.deleteById(id);
+    }
+
+    // Method to map User to UserDTO
+    public UserDTO toUserDTO(User user) {
+        return new UserDTO(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getRole().toString());
     }
 }

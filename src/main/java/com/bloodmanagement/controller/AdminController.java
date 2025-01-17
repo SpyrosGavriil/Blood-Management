@@ -1,5 +1,6 @@
 package com.bloodmanagement.controller;
 
+import com.bloodmanagement.dto.AdminDTO;
 import com.bloodmanagement.model.Admin;
 import com.bloodmanagement.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,13 @@ public class AdminController {
 
     // Get all admins
     @GetMapping("/getAll")
-    public ResponseEntity<List<Admin>> getAllAdmins() {
+    public ResponseEntity<List<AdminDTO>> getAllAdmins() {
         return ResponseEntity.ok(adminService.getAllAdmins());
     }
 
     // Get a specific admin by ID
     @GetMapping("/get/{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable Integer id) {
+    public ResponseEntity<AdminDTO> getAdminById(@PathVariable Integer id) {
         return adminService.getAdminById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -35,19 +36,19 @@ public class AdminController {
 
     // Create a new admin
     @PostMapping("/create")
-    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
-        Admin createdAdmin = adminService.saveAdmin(admin);
+    public ResponseEntity<AdminDTO> createAdmin(@RequestBody Admin admin) {
+        AdminDTO createdAdmin = adminService.saveAdmin(admin);
         return ResponseEntity.ok(createdAdmin);
     }
 
     // Update an existing admin
     @PutMapping("/update/{id}")
-    public ResponseEntity<Admin> updateAdmin(@PathVariable Integer id, @RequestBody Admin admin) {
+    public ResponseEntity<AdminDTO> updateAdmin(@PathVariable Integer id, @RequestBody Admin admin) {
         if (!adminService.getAdminById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
         admin.setId(id);
-        Admin updatedAdmin = adminService.saveAdmin(admin);
+        AdminDTO updatedAdmin = adminService.saveAdmin(admin);
         return ResponseEntity.ok(updatedAdmin);
     }
 

@@ -27,8 +27,12 @@ public class SecurityConfig {
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/v1/auth/**").permitAll()
                                                 .requestMatchers("/api/admins/**").hasRole("ADMIN")
-                                                .requestMatchers("/api/donors").hasAnyRole("USER", "ADMIN")
-                                                .requestMatchers("/api/users/**").hasAnyRole("USER", "ADMIN") // Allow both USER and ADMIN roles
+                                                .requestMatchers("/api/donors/**").hasRole("ADMIN")
+                                                .requestMatchers("/api/blood-banks/getAll").hasAnyRole("USER", "ADMIN")
+                                                .requestMatchers("/api/blood-banks/**").hasRole("ADMIN")
+                                                .requestMatchers("/api/donation-records/donor/{donorId}").hasAnyRole("USER", "ADMIN")
+                                                .requestMatchers("/api/donation-records/**").hasRole("ADMIN")
+                                                .requestMatchers("/api/users/**").hasAnyRole("ADMIN")
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

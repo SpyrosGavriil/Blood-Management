@@ -1,6 +1,8 @@
 package com.bloodmanagement.service;
 
+import com.bloodmanagement.dto.AdminDTO;
 import com.bloodmanagement.model.Admin;
+import com.bloodmanagement.model.Role;
 import com.bloodmanagement.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminService {
@@ -21,20 +24,44 @@ public class AdminService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<Admin> getAllAdmins() {
-        return adminRepository.findAll();
+    // Get all admins and return as AdminDTO
+    public List<AdminDTO> getAllAdmins() {
+        return adminRepository.findAll()
+                .stream()
+                .map(this::toAdminDTO) // Map each Admin to AdminDTO
+                .collect(Collectors.toList());
     }
 
-    public Optional<Admin> getAdminById(Integer id) {
-        return adminRepository.findById(id);
+    // Get an admin by ID and return as AdminDTO
+    public Optional<AdminDTO> getAdminById(Integer id) {
+        return adminRepository.findById(id)
+                .map(this::toAdminDTO); // Map Admin to AdminDTO
     }
 
-    public Admin saveAdmin(Admin admin) {
+    // Create or update an admin and return as AdminDTO
+    public AdminDTO saveAdmin(Admin admin) {
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-        return adminRepository.save(admin);
+        admin.setRole(Role.ADMIN);
+        Admin savedAdmin = adminRepository.save(admin);
+        return toAdminDTO(savedAdmin);
     }
 
+    // Delete an admin by ID
     public void deleteAdmin(Integer id) {
+        if (!adminRepository.existsById(id)) {
+            throw new IllegalArgumentException("Admin not found with ID: " + id);
+        }
         adminRepository.deleteById(id);
+    }
+
+    // Map Admin to AdminDTO
+    private AdminDTO toAdminDTO(Admin admin) {
+        return new AdminDTO(
+                admin.getId(),
+                admin.getFirstName(),
+                admin.getLastName(),
+                admin.getUsername(),
+                admin.getRole().toString()
+        );
     }
 }

@@ -1,8 +1,10 @@
 package com.bloodmanagement.controller;
 
+import com.bloodmanagement.dto.UserDTO;
 import com.bloodmanagement.model.User;
 import com.bloodmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +23,13 @@ public class UserController {
 
     // Get all users
     @GetMapping("/getAll")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     // Get a specific user by ID
     @GetMapping("/get/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id) {
         return userService.getUserById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -35,19 +37,20 @@ public class UserController {
 
     // Create a new user
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.saveUser(user);
+    public ResponseEntity<UserDTO> createUser(@RequestBody User user) {
+        UserDTO createdUser = userService.saveUser(user);
         return ResponseEntity.ok(createdUser);
     }
 
     // Update an existing user
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @RequestBody User user) {
         if (!userService.getUserById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
+        userService.deleteUser(id);
         user.setId(id);
-        User updatedUser = userService.saveUser(user);
+        UserDTO updatedUser = userService.saveUser(user);
         return ResponseEntity.ok(updatedUser);
     }
 

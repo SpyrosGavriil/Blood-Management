@@ -3,6 +3,7 @@ package com.bloodmanagement.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.bloodmanagement.dto.DonorDTO;
 import com.bloodmanagement.model.Donor;
 import com.bloodmanagement.service.DonorService;
 
@@ -17,9 +18,18 @@ public class DonorController {
         this.donorService = donorService;
     }
 
-    @GetMapping("/{politicalId}")
-    public Donor getDonorByPoliticalId(@PathVariable Integer politicalId) {
+    @GetMapping("/get/{politicalId}")
+    public DonorDTO getDonorByPoliticalId(@PathVariable Integer politicalId) {
         return donorService.getDonorByPoliticalId(politicalId);
     }
 
+    @PostMapping("/create")
+    public DonorDTO createDonor(@RequestBody Donor donor) {
+        return donorService.createDonor(donor);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteDonor(@PathVariable Integer id) {
+        donorService.deleteDonor(id);
+    }
 }
