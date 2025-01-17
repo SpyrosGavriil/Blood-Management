@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private Donor donor;
 
     @Enumerated(EnumType.STRING)
-    // @Column(name = "role", length = 20)
+    @Column(name = "role", length = 20)
     private Role role;
 
     @Override
