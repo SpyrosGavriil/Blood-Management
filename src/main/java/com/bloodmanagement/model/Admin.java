@@ -1,6 +1,5 @@
 package com.bloodmanagement.model;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
