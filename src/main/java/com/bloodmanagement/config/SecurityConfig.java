@@ -27,6 +27,7 @@ public class SecurityConfig {
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/v1/auth/**").permitAll()
                                                 .requestMatchers("/api/admins/**").hasRole("ADMIN")
+                                                .requestMatchers("/api/donors").hasAnyRole("USER", "ADMIN")
                                                 .requestMatchers("/api/users/**").hasAnyRole("USER", "ADMIN") // Allow both USER and ADMIN roles
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session

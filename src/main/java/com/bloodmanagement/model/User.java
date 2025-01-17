@@ -30,41 +30,8 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    // @Column(name = "political_id", nullable = false)
-    // private Integer politicalId;
-
-    // @Column(name = "first_name", length = 50, nullable = false)
-    // private String firstName;
-
-    // @Column(name = "last_name", length = 50, nullable = false)
-    // private String lastName;
-
-    // @Column(name = "email", length = 100, nullable = false, unique = true)
-    // private String email;
-
-    // @Column(name = "username", length = 50, nullable = false, unique = true)
-    // private String username;
-
-    // @Column(name = "password", length = 255, nullable = false)
-    // private String password;
-
-    // @Column(name = "blood_group", length = 5)
-    // private String bloodGroup;
-
-    // @Column(name = "is_donor", nullable = false)
-    // private Boolean isDonor;
-
-    // @Column(name = "last_donation_date")
-    // private LocalDate lastDonationDate;
-
-    // @Column(name = "age", nullable = false)
-    // private Integer age;
-
-    // @Column(name = "gender", length = 10)
-    // private String gender;
-
-    // @Column(name = "eligible_to_donate", nullable = false)
-    // private Boolean eligibleToDonate;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Donor donor;
 
     @Enumerated(EnumType.STRING)
     // @Column(name = "role", length = 20)
