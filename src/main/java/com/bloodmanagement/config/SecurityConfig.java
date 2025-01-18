@@ -25,12 +25,11 @@ public class SecurityConfig {
                 http
                                 .csrf(csrf -> csrf.disable()) // Disable CSRF protection
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers("/api/v1/auth/**").permitAll()
+                                                .requestMatchers("/api/auth/**").permitAll()
                                                 .requestMatchers("/api/admins/**").hasRole("ADMIN")
                                                 .requestMatchers("/api/donors/**").hasRole("ADMIN")
                                                 .requestMatchers("/api/blood-banks/getAll").hasAnyRole("USER", "ADMIN")
                                                 .requestMatchers("/api/blood-banks/**").hasRole("ADMIN")
-                                                .requestMatchers("/api/donation-records/donor/{donorId}").hasAnyRole("USER", "ADMIN")
                                                 .requestMatchers("/api/donation-records/**").hasRole("ADMIN")
                                                 .requestMatchers("/api/users/**").hasAnyRole("ADMIN")
                                                 .anyRequest().authenticated())

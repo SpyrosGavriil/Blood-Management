@@ -47,7 +47,7 @@ public class AdminController {
         if (!adminService.getAdminById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        admin.setId(id);
+        admin.setPoliticalId(id);
         AdminDTO updatedAdmin = adminService.saveAdmin(admin);
         return ResponseEntity.ok(updatedAdmin);
     }

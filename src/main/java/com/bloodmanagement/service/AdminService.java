@@ -57,11 +57,9 @@ public class AdminService {
     // Map Admin to AdminDTO
     private AdminDTO toAdminDTO(Admin admin) {
         return new AdminDTO(
-                admin.getId(),
+                admin.getPoliticalId(),
                 admin.getFirstName(),
                 admin.getLastName(),
-                admin.getUsername(),
-                admin.getRole().toString()
-        );
+                admin.getUsername());
     }
 }

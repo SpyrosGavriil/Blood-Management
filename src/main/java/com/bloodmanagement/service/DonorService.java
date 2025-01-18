@@ -3,9 +3,7 @@ package com.bloodmanagement.service;
 import org.springframework.stereotype.Service;
 
 import com.bloodmanagement.dto.DonorDTO;
-import com.bloodmanagement.dto.UserDTO;
 import com.bloodmanagement.model.Donor;
-import com.bloodmanagement.model.User;
 import com.bloodmanagement.repository.DonorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,23 +53,11 @@ public class DonorService {
     // Map Donor to DonorDTO
     private DonorDTO toDonorDTO(Donor donor) {
         return new DonorDTO(
-                donor.getId(),
-                toUserDTO(donor.getUser()),
                 donor.getPoliticalId(),
                 donor.getBloodGroup(),
                 donor.getAge(),
                 donor.getGender(),
                 donor.getLastDonationDate() // Map User to UserDTO
         );
-    }
-
-    // Map User to UserDTO
-    private UserDTO toUserDTO(User user) {
-        return new UserDTO(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getUsername(),
-                user.getRole().toString());
     }
 }

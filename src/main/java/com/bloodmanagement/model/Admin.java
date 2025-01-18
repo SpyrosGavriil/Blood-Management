@@ -22,9 +22,7 @@ import lombok.NoArgsConstructor;
 public class Admin implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    private Integer politicalId;
 
     private String firstName;
     private String lastName;

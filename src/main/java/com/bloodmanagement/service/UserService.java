@@ -43,9 +43,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
 
-        if (user.getDonor() != null) {
-            user.getDonor().setUser(user);
-        }
         User savedUser = userRepository.save(user);
         return toUserDTO(savedUser); // Map the saved User to UserDTO
     }
@@ -61,7 +58,7 @@ public class UserService {
     // Method to map User to UserDTO
     public UserDTO toUserDTO(User user) {
         return new UserDTO(
-                user.getId(),
+                user.getPoliticalId(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getUsername(),

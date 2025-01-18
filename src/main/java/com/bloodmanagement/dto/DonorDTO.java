@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DonorDTO {
-    private Integer id;
-    private UserDTO user; // Embedded UserDTO for user details
     private Integer politicalId;
     private String bloodGroup;
     private Integer age;

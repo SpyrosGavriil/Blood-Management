@@ -36,13 +36,13 @@ public class DonationRecordController {
     }
 
     @GetMapping("/blood-bank/{bloodBankId}")
-    public List<DonationRecordDTO> getDonationRecordsByBloodBank(@PathVariable Long bloodBankId) {
+    public List<DonationRecordDTO> getDonationRecordsByBloodBank(@PathVariable String bloodBankId) {
         return donationRecordService.getDonationRecordsByBloodBankId(bloodBankId);
     }
 
     @PostMapping("/create")
-    public DonationRecordDTO createOrUpdateDonationRecord(@RequestBody DonationRecord donationRecord){
-        return donationRecordService.createOrUpdateDonationRecord(donationRecord);
+    public DonationRecordDTO createDonationRecord(@RequestBody DonationRecord donationRecord) {
+        return donationRecordService.createDonationRecord(donationRecord);
     }
 
     @DeleteMapping("delete/{id}")

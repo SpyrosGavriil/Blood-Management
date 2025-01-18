@@ -39,8 +39,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         jwt = authHeader.substring(7);
         String role = jwtService.extractClaim(jwt, claims -> claims.get("role").toString());
-        System.out.println("Extracted Role: " + role);
-        System.out.println("Admin url? " + request.getRequestURI().startsWith("/api/admins"));
 
         if ("ROLE_USER".equalsIgnoreCase(role) && request.getRequestURI().startsWith("/api/admins")) {
             throw new AccessDeniedException("Access denied for USER role on ADMIN endpoints");

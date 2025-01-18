@@ -1,6 +1,7 @@
 package com.bloodmanagement.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,16 +23,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
-    private Integer id;
+    @Column(unique = true, nullable = false)
+    @NotNull(message = "Political ID cannot be null")
+    private Integer politicalId;
 
     private String firstName;
     private String lastName;
     private String username;
     private String password;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Donor donor;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", length = 20)
@@ -46,5 +45,4 @@ public class User implements UserDetails {
     public String getUsername() {
         return this.username;
     }
-
 }

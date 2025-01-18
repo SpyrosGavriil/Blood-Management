@@ -1,6 +1,7 @@
 package com.bloodmanagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.bloodmanagement.dto.BloodBankDTO;
@@ -25,9 +26,10 @@ public class BloodBankController {
         return bloodBankService.getAllBloodBanks();
     }
 
-    @GetMapping("get/{id}")
-    public BloodBankDTO getBloodBankById(@PathVariable Long id) {
-        return bloodBankService.getBloodBankById(id);
+    @GetMapping("/findByName/{name}")
+    public ResponseEntity<BloodBankDTO> findByName(@PathVariable String name) {
+        BloodBankDTO bloodBank = bloodBankService.findBloodBankByName(name);
+        return ResponseEntity.ok(bloodBank);
     }
 
     @PostMapping("/update")
@@ -35,8 +37,8 @@ public class BloodBankController {
         return bloodBankService.createOrUpdateBloodBank(bloodBank);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteBloodBank(@PathVariable Long id) {
-        bloodBankService.deleteBloodBank(id);
+    @DeleteMapping("/delete/{name}")
+    public void deleteBloodBank(@PathVariable String name) {
+        bloodBankService.deleteBloodBank(name);
     }
 }

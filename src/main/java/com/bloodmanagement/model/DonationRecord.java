@@ -16,15 +16,11 @@ import lombok.NoArgsConstructor;
 public class DonationRecord {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @JoinColumn(name = "politicalId")
+    private Integer politicalId;
 
     @ManyToOne
-    @JoinColumn(name = "donor_id", nullable = false)
-    private Donor donor;
-
-    @ManyToOne
-    @JoinColumn(name = "blood_bank_id", nullable = false)
+    @JoinColumn(name = "blood_bank_name", nullable = false)
     private BloodBank bloodBank;
 
     private LocalDate donationDate;
@@ -39,7 +35,7 @@ public class DonationRecord {
         DonationRecord that = (DonationRecord) o;
 
         // Compare each field for equality
-        if (!donor.equals(that.donor))
+        if (this.politicalId != that.politicalId)
             return false;
         if (!bloodBank.equals(that.bloodBank))
             return false;
@@ -48,7 +44,7 @@ public class DonationRecord {
 
     @Override
     public int hashCode() {
-        int result = donor.hashCode();
+        int result = politicalId.hashCode();
         result = 31 * result + bloodBank.hashCode();
         result = 31 * result + donationDate.hashCode();
         return result;

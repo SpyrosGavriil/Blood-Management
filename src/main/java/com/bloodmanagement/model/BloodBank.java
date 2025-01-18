@@ -19,9 +19,7 @@ import jakarta.validation.constraints.Size;
 public class BloodBank {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Column(name = "name")
     @NotNull(message = "Name cannot be null")
     @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
     private String name;

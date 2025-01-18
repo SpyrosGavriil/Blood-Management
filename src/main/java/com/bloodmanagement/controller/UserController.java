@@ -4,7 +4,6 @@ import com.bloodmanagement.dto.UserDTO;
 import com.bloodmanagement.model.User;
 import com.bloodmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +48,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
         userService.deleteUser(id);
-        user.setId(id);
+        user.setPoliticalId(id);
         UserDTO updatedUser = userService.saveUser(user);
         return ResponseEntity.ok(updatedUser);
     }

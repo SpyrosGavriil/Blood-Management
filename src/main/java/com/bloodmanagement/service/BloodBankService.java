@@ -8,6 +8,7 @@ import com.bloodmanagement.model.BloodBank;
 import com.bloodmanagement.repository.BloodBankRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,10 +29,10 @@ public class BloodBankService {
                 .collect(Collectors.toList());
     }
 
-    // Get a blood bank by ID and return as BloodBankDTO
-    public BloodBankDTO getBloodBankById(Long id) {
-        BloodBank bloodBank = bloodBankRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No BloodBank found with ID: " + id));
+    // Find a blood bank by name and return as BloodBankDTO
+    public BloodBankDTO findBloodBankByName(String name) {
+        BloodBank bloodBank = bloodBankRepository.findByName(name)
+                .orElseThrow(() -> new RuntimeException("Blood bank with name " + name + " not found"));
         return toBloodBankDTO(bloodBank);
     }
 
@@ -41,18 +42,18 @@ public class BloodBankService {
         return toBloodBankDTO(savedBloodBank);
     }
 
-    // Delete a blood bank by ID
-    public void deleteBloodBank(Long id) {
-        if (!bloodBankRepository.existsById(id)) {
-            throw new IllegalArgumentException("No BloodBank found with ID: " + id);
+    // Delete a blood bank by name
+    public void deleteBloodBank(String name) {
+        Optional<BloodBank> bloodBankOptional = bloodBankRepository.findByName(name);
+        if (bloodBankOptional.isEmpty()) { // Use isEmpty() to check if the Optional is not present
+            throw new IllegalArgumentException("No BloodBank found with name: " + name);
         }
-        bloodBankRepository.deleteById(id);
+        bloodBankRepository.delete(bloodBankOptional.get());
     }
 
     // Map BloodBank to BloodBankDTO
     private BloodBankDTO toBloodBankDTO(BloodBank bloodBank) {
         return new BloodBankDTO(
-                bloodBank.getId(),
                 bloodBank.getName(),
                 bloodBank.getLocation());
     }

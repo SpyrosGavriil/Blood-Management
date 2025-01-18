@@ -15,16 +15,7 @@ import lombok.NoArgsConstructor;
 public class Donor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    @NotNull(message = "User cannot be null")
-    private User user;
-
-    @Column(unique = true, nullable = false)
-    @NotNull(message = "Political ID cannot be null")
+    @JoinColumn(name = "politicalId")
     private Integer politicalId;
 
     @NotBlank(message = "Blood group cannot be blank")
