@@ -60,6 +60,7 @@ public class AdminService {
                 admin.getPoliticalId(),
                 admin.getFirstName(),
                 admin.getLastName(),
-                admin.getUsername());
+                admin.getUsername(),
+                admin.getRole().toString());
     }
 }

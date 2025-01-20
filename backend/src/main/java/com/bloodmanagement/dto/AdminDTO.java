@@ -12,4 +12,5 @@ public class AdminDTO {
     private String firstName;
     private String lastName;
     private String username;
+    private String role; // Exposed as a String for simplicity
 }
