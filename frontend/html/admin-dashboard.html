@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/admin-dashboard.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <header>
+        <h1>Admin Dashboard - Blood Management System</h1>
+      </header>
+
+      <main>
+        <!-- Overview Section -->
+        <section class="overview-section">
+          <h2>Overview</h2>
+          <div class="overview-cards">
+            <div class="card">
+              <h3>Total Admins</h3>
+              <p id="totalAdmins">Loading...</p>
+            </div>
+            <div class="card">
+              <h3>Total Blood Banks</h3>
+              <p id="totalBloodBanks">Loading...</p>
+            </div>
+            <div class="card">
+              <h3>Total Donors</h3>
+              <p id="totalDonors">Loading...</p>
+            </div>
+            <div class="card">
+              <h3>Total Donations</h3>
+              <p id="totalDonations">Loading...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Blood Banks Section -->
+        <section class="blood-banks-section">
+          <h2>Blood Bank Management</h2>
+          <div class="search-container">
+            <input
+              type="text"
+              id="searchBloodBank"
+              placeholder="Search Blood Banks"
+            />
+            <button id="searchButton">Search</button>
+          </div>
+          <table class="blood-bank-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Contact</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bloodBankTableBody">
+              <!-- Dynamic rows will be added here -->
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Donor Management Section -->
+        <section class="donor-management-section">
+          <h2>Donor Management</h2>
+          <div class="search-container">
+            <input type="text" id="searchDonor" placeholder="Search Donors" />
+            <button id="donorSearchButton">Search</button>
+          </div>
+          <table class="donor-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Blood Type</th>
+                <th>Age</th>
+                <th>Last Donation</th>
+                <th>Status</th>
+                <th>Contact</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="donorTableBody">
+              <!-- Dynamic rows will be added here -->
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Donation Records Management Section -->
+        <section class="donation-records-section">
+          <h2>Donation Records Management</h2>
+          <div class="search-container">
+            <input
+              type="text"
+              id="searchDonationRecord"
+              placeholder="Search Donation Records"
+            />
+            <button id="donationSearchButton">Search</button>
+          </div>
+          <table class="donation-record-table">
+            <thead>
+              <tr>
+                <th>Donor ID</th>
+                <th>Blood Bank Name</th>
+                <th>Donation Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="donationRecordTableBody">
+              <!-- Dynamic rows will be added here -->
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="../js/admin-dashboard.js"></script>
+  </body>
+</html>
