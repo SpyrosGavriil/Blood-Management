@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DonorDTO {
+    private String firstName;
+    private String lastName;
     private Integer politicalId;
     private String bloodGroup;
     private Integer age;

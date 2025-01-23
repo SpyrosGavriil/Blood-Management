@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import com.bloodmanagement.dto.DonorDTO;
 import com.bloodmanagement.model.Donor;
 import com.bloodmanagement.repository.DonorRepository;
+import com.bloodmanagement.repository.UserRepository;
+import com.bloodmanagement.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,10 +17,12 @@ import java.util.stream.Collectors;
 public class DonorService {
 
     private final DonorRepository donorRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public DonorService(DonorRepository donorRepository) {
+    public DonorService(DonorRepository donorRepository, UserRepository userRepository) {
         this.donorRepository = donorRepository;
+        this.userRepository = userRepository;
     }
 
     // Get all donors and return as DonorDTO
@@ -52,7 +56,14 @@ public class DonorService {
 
     // Map Donor to DonorDTO
     private DonorDTO toDonorDTO(Donor donor) {
+
+        User user = userRepository.findByPoliticalId(donor.getPoliticalId())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "User not found with politicalId: " + donor.getPoliticalId()));
+
         return new DonorDTO(
+                user.getFirstName(),
+                user.getLastName(),
                 donor.getPoliticalId(),
                 donor.getBloodGroup(),
                 donor.getAge(),

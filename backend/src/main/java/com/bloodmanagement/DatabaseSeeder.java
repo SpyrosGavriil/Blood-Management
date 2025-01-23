@@ -28,11 +28,13 @@ public class DatabaseSeeder {
                 BloodBank bloodBank1 = BloodBank.builder()
                                 .name("Central Blood Bank")
                                 .location("Downtown City")
+                                .contact("1234567890")
                                 .build();
 
                 BloodBank bloodBank2 = BloodBank.builder()
                                 .name("Regional Blood Center")
                                 .location("Northside Area")
+                                .contact("2345678901")
                                 .build();
 
                 bloodBankRepository.saveAll(Arrays.asList(bloodBank1, bloodBank2));

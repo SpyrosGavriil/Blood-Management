@@ -28,6 +28,10 @@ public class BloodBank {
     @Size(min = 5, max = 200, message = "Location must be between 5 and 200 characters")
     private String location;
 
+    @NotNull(message = "Contact cannot be null")
+    @Size(min = 10, max = 15, message = "Contact must be between 10 and 15 characters")
+    private String contact;
+
     @Builder.Default
     @OneToMany(mappedBy = "bloodBank", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DonationRecord> donationRecords = new ArrayList<>();

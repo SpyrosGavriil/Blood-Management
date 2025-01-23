@@ -55,6 +55,8 @@ public class BloodBankService {
     private BloodBankDTO toBloodBankDTO(BloodBank bloodBank) {
         return new BloodBankDTO(
                 bloodBank.getName(),
-                bloodBank.getLocation());
+                bloodBank.getLocation(),
+                bloodBank.getContact() // Added mapping
+        );
     }
 }

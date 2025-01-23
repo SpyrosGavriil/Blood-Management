@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.bloodmanagement.dto.DonorDTO;
 import com.bloodmanagement.model.Donor;
 import com.bloodmanagement.service.DonorService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/donors")
@@ -16,6 +17,11 @@ public class DonorController {
     @Autowired
     public DonorController(DonorService donorService) {
         this.donorService = donorService;
+    }
+
+    @GetMapping("/getAll")
+    public List<DonorDTO> getAllDonors() {
+        return donorService.getAllDonors();
     }
 
     @GetMapping("/get/{politicalId}")
