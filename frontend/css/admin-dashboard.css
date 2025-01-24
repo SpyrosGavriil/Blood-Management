@@ -12,7 +12,10 @@ body {
 }
 
 header {
-  background-color: #ffffff;
+  background-color: #ff4d4d;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
   margin-bottom: 20px;
@@ -120,3 +123,33 @@ header {
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
+
+.blood-bank-table-container {
+  overflow-y: auto;
+  max-height: 200px; /* Ensures the height fits 4 rows */
+}
+
+.donation-records-table-container {
+  overflow-y: auto;
+  max-height: 300px; /* Ensures the height fits 4 rows */
+}
+
+.donor-table-container {
+  overflow-y: auto;
+  max-height: 200px; /* Ensures the height fits 4 rows */
+}
+
+.blood-bank-table,
+.donor-table,
+.donation-record-table {
+  width: 100%;
+}
+
+.blood-bank-table thead th,
+.donor-table thead th,
+.donation-record-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f8f8;
+}
+

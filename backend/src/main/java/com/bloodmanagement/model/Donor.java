@@ -29,5 +29,7 @@ public class Donor {
     @NotBlank(message = "Gender cannot be blank")
     private String gender;
 
+    private Long phoneNumber;
+
     private String lastDonationDate;
 }

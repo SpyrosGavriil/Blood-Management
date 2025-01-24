@@ -15,4 +15,5 @@ public class DonorDTO {
     private Integer age;
     private String gender;
     private String lastDonationDate;
+    private Long phoneNumber;
 }

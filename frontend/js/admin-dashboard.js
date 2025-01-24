@@ -146,20 +146,18 @@ document.addEventListener("DOMContentLoaded", () => {
         .map(
           (donor) => `
               <tr>
+                <td>${donor.firstName} ${donor.lastName || "N/A"}</td>
                   <td>${donor.politicalId || "N/A"}</td>
-                  <td>${donor.firstName} ${donor.lastName || "N/A"}</td>
                   <td>${donor.bloodGroup}</td>
                   <td>${donor.age}</td>
                   <td>${donor.lastDonationDate || "N/A"}</td>
                   <td>${donor.gender}</td>
-                  <td>${donor.contact || "N/A"}</td>
+                  <td>${donor.phoneNumber || "N/A"}</td>
                   <td>
-                      <button class="edit-btn" data-id="${
-                        donor.politicalId
-                      }">Edit</button>
-                      <button class="delete-btn" data-id="${
-                        donor.politicalId
-                      }">Delete</button>
+                      <button class="edit-btn" data-id="${donor.politicalId
+            }">Edit</button>
+                      <button class="delete-btn" data-id="${donor.politicalId
+            }">Delete</button>
                   </td>
               </tr>
           `
@@ -219,8 +217,8 @@ document.addEventListener("DOMContentLoaded", () => {
           (record) => `
                 <tr>
                     <td>${record.politicalId}</td>
-                    <td>${record.bloodBankName}</td>
                     <td>${record.donationDate}</td>
+                    <td>${record.bloodBankName}</td>
                     <td>
                         <button>Edit</button>
                         <button>Delete</button>

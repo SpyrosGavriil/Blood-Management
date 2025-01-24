@@ -68,7 +68,8 @@ public class DonorService {
                 donor.getBloodGroup(),
                 donor.getAge(),
                 donor.getGender(),
-                donor.getLastDonationDate() // Map User to UserDTO
+                donor.getLastDonationDate(), // Map User to UserDTO
+                donor.getPhoneNumber()
         );
     }
 }

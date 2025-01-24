@@ -47,19 +47,21 @@
             />
             <button id="searchButton">Search</button>
           </div>
-          <table class="blood-bank-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Contact</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="bloodBankTableBody">
-              <!-- Dynamic rows will be added here -->
-            </tbody>
-          </table>
+          <div class="blood-bank-table-container">
+            <table class="blood-bank-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Location</th>
+                  <th>Contact</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bloodBankTableBody" class="table-body-scroll">
+                <!-- Dynamic rows will be added here -->
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <!-- Donor Management Section -->
@@ -69,22 +71,25 @@
             <input type="text" id="searchDonor" placeholder="Search Donors" />
             <button id="donorSearchButton">Search</button>
           </div>
-          <table class="donor-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Blood Type</th>
-                <th>Age</th>
-                <th>Last Donation</th>
-                <th>Status</th>
-                <th>Contact</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="donorTableBody">
-              <!-- Dynamic rows will be added here -->
-            </tbody>
-          </table>
+          <div class="donor-table-container">
+            <table class="donor-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Political ID</th>
+                  <th>Blood Type</th>
+                  <th>Age</th>
+                  <th>Last Donation</th>
+                  <th>Status</th>
+                  <th>Contact</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="donorTableBody" class="table-body-scroll">
+                <!-- Dynamic rows will be added here -->
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <!-- Donation Records Management Section -->
@@ -98,19 +103,21 @@
             />
             <button id="donationSearchButton">Search</button>
           </div>
-          <table class="donation-record-table">
-            <thead>
-              <tr>
-                <th>Donor ID</th>
-                <th>Blood Bank Name</th>
-                <th>Donation Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="donationRecordTableBody">
-              <!-- Dynamic rows will be added here -->
-            </tbody>
-          </table>
+          <div class="donation-records-table-container">
+            <table class="donation-record-table">
+              <thead>
+                <tr>
+                  <th>Donor ID</th>
+                  <th>Blood Bank Name</th>
+                  <th>Donation Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="donationRecordTableBody" class="table-body-scroll">
+                <!-- Dynamic rows will be added here -->
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </div>

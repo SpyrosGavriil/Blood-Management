@@ -15,91 +15,290 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class DatabaseSeeder {
 
-        private final UserRepository userRepository;
-        private final DonorRepository donorRepository;
-        private final AdminRepository adminRepository;
-        private final BloodBankRepository bloodBankRepository;
-        private final DonationRecordRepository donationRecordRepository;
-        private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final DonorRepository donorRepository;
+    private final AdminRepository adminRepository;
+    private final BloodBankRepository bloodBankRepository;
+    private final DonationRecordRepository donationRecordRepository;
+    private final PasswordEncoder passwordEncoder;
 
-        @PostConstruct
-        public void seedDatabase() {
-                // Seed BloodBanks
-                BloodBank bloodBank1 = BloodBank.builder()
-                                .name("Central Blood Bank")
-                                .location("Downtown City")
-                                .contact("1234567890")
-                                .build();
+    @PostConstruct
+    public void seedDatabase() {
+        // Seed BloodBanks
+        BloodBank bloodBank1 = BloodBank.builder()
+                .name("Central Blood Bank")
+                .location("Downtown City")
+                .contact("1234567890")
+                .build();
 
-                BloodBank bloodBank2 = BloodBank.builder()
-                                .name("Regional Blood Center")
-                                .location("Northside Area")
-                                .contact("2345678901")
-                                .build();
+        BloodBank bloodBank2 = BloodBank.builder()
+                .name("Regional Blood Center")
+                .location("Northside Area")
+                .contact("2345678901")
+                .build();
 
-                bloodBankRepository.saveAll(Arrays.asList(bloodBank1, bloodBank2));
+        BloodBank bloodBank3 = BloodBank.builder()
+                .name("City Hospital Blood Bank")
+                .location("Eastside City")
+                .contact("3456789012")
+                .build();
 
-                // Seed Users and Donors
-                User user1 = User.builder()
-                                .firstName("John")
-                                .lastName("Doe")
-                                .username("john_doe")
-                                .politicalId(123456)
-                                .password(passwordEncoder.encode("password123"))
-                                .role(Role.USER)
-                                .build();
+        BloodBank bloodBank4 = BloodBank.builder()
+                .name("Metro Blood Services")
+                .location("West End")
+                .contact("4567890123")
+                .build();
 
-                User user2 = User.builder()
-                                .firstName("Jane")
-                                .lastName("Smith")
-                                .username("jane_smith")
-                                .politicalId(234567)
-                                .password(passwordEncoder.encode("password456"))
-                                .role(Role.USER)
-                                .build();
+        bloodBankRepository.saveAll(Arrays.asList(bloodBank1, bloodBank2, bloodBank3, bloodBank4));
 
-                userRepository.saveAll(Arrays.asList(user1, user2));
+        // Seed Users and Donors
+        User user1 = User.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .username("john_doe")
+                .politicalId(123456)
+                .password(passwordEncoder.encode("password123"))
+                .role(Role.USER)
+                .build();
 
-                Donor donor1 = Donor.builder()
-                                .politicalId(user1.getPoliticalId())
-                                .bloodGroup("A+")
-                                .age(30)
-                                .gender("Male")
-                                .build();
+        User user2 = User.builder()
+                .firstName("Jane")
+                .lastName("Smith")
+                .username("jane_smith")
+                .politicalId(234567)
+                .password(passwordEncoder.encode("password456"))
+                .role(Role.USER)
+                .build();
 
-                Donor donor2 = Donor.builder()
-                                .politicalId(user2.getPoliticalId())
-                                .bloodGroup("O-")
-                                .age(28)
-                                .gender("Female")
-                                .build();
+        User user3 = User.builder()
+                .firstName("Alice")
+                .lastName("Brown")
+                .username("alice_brown")
+                .politicalId(345678)
+                .password(passwordEncoder.encode("password789"))
+                .role(Role.USER)
+                .build();
 
-                donorRepository.saveAll(Arrays.asList(donor1, donor2));
+        User user4 = User.builder()
+                .firstName("Bob")
+                .lastName("Johnson")
+                .username("bob_johnson")
+                .politicalId(456789)
+                .password(passwordEncoder.encode("password321"))
+                .role(Role.USER)
+                .build();
 
-                // Seed Admins
-                Admin admin1 = Admin.builder()
-                                .firstName("Admin")
-                                .lastName("User")
-                                .username("admin_user")
-                                .politicalId(123456)
-                                .password(passwordEncoder.encode("adminPass123"))
-                                .role(Role.ADMIN)
-                                .build();
+        User user5 = User.builder()
+                .firstName("Charlie")
+                .lastName("Davis")
+                .username("charlie_davis")
+                .politicalId(567890)
+                .password(passwordEncoder.encode("password654"))
+                .role(Role.USER)
+                .build();
 
-                adminRepository.save(admin1);
+        User user6 = User.builder()
+                .firstName("David")
+                .lastName("Miller")
+                .username("david_miller")
+                .politicalId(678901)
+                .password(passwordEncoder.encode("password987"))
+                .role(Role.USER)
+                .build();
 
-                // Seed DonationRecords
-                DonationRecord record1 = DonationRecord.builder()
-                                .politicalId(donor1.getPoliticalId())
-                                .bloodBank(bloodBank1)
-                                .donationDate(LocalDate.of(2025, 1, 10)) // Corrected to LocalDate
-                                .build();
+        User user7 = User.builder()
+                .firstName("Emma")
+                .lastName("Wilson")
+                .username("emma_wilson")
+                .politicalId(789012)
+                .password(passwordEncoder.encode("password147"))
+                .role(Role.USER)
+                .build();
 
-                DonationRecord record2 = DonationRecord.builder()
-                                .politicalId(donor2.getPoliticalId())
-                                .bloodBank(bloodBank2)
-                                .donationDate(LocalDate.of(2025, 1, 12)) // Corrected to LocalDate
-                                .build();
-                donationRecordRepository.saveAll(Arrays.asList(record1, record2));
-        }
+        User user8 = User.builder()
+                .firstName("Fiona")
+                .lastName("Taylor")
+                .username("fiona_taylor")
+                .politicalId(890123)
+                .password(passwordEncoder.encode("password258"))
+                .role(Role.USER)
+                .build();
+
+        User user9 = User.builder()
+                .firstName("George")
+                .lastName("Anderson")
+                .username("george_anderson")
+                .politicalId(901234)
+                .password(passwordEncoder.encode("password369"))
+                .role(Role.USER)
+                .build();
+
+        User user10 = User.builder()
+                .firstName("Hannah")
+                .lastName("Clark")
+                .username("hannah_clark")
+                .politicalId(123890)
+                .password(passwordEncoder.encode("password741"))
+                .role(Role.USER)
+                .build();
+
+        userRepository.saveAll(Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10));
+
+        Donor donor1 = Donor.builder()
+                .politicalId(user1.getPoliticalId())
+                .bloodGroup("A+")
+                .age(30)
+                .gender("Male")
+                .phoneNumber(12345678L)
+                .build();
+
+        Donor donor2 = Donor.builder()
+                .politicalId(user2.getPoliticalId())
+                .bloodGroup("O-")
+                .age(28)
+                .gender("Female")
+                .phoneNumber(23456789L)
+                .build();
+
+        Donor donor3 = Donor.builder()
+                .politicalId(user3.getPoliticalId())
+                .bloodGroup("B+")
+                .age(35)
+                .gender("Female")
+                .phoneNumber(34567890L)
+                .build();
+
+        Donor donor4 = Donor.builder()
+                .politicalId(user4.getPoliticalId())
+                .bloodGroup("AB-")
+                .age(40)
+                .gender("Male")
+                .phoneNumber(45678901L)
+                .build();
+
+        Donor donor5 = Donor.builder()
+                .politicalId(user5.getPoliticalId())
+                .bloodGroup("O+")
+                .age(25)
+                .gender("Male")
+                .phoneNumber(56789012L)
+                .build();
+
+        Donor donor6 = Donor.builder()
+                .politicalId(user6.getPoliticalId())
+                .bloodGroup("A-")
+                .age(29)
+                .gender("Male")
+                .phoneNumber(67890123L)
+                .build();
+
+        Donor donor7 = Donor.builder()
+                .politicalId(user7.getPoliticalId())
+                .bloodGroup("AB+")
+                .age(32)
+                .gender("Female")
+                .phoneNumber(78901234L)
+                .build();
+
+        Donor donor8 = Donor.builder()
+                .politicalId(user8.getPoliticalId())
+                .bloodGroup("B-")
+                .age(27)
+                .gender("Female")
+                .phoneNumber(89012345L)
+                .build();
+
+        Donor donor9 = Donor.builder()
+                .politicalId(user9.getPoliticalId())
+                .bloodGroup("O-")
+                .age(31)
+                .gender("Male")
+                .phoneNumber(90123456L)
+                .build();
+
+        Donor donor10 = Donor.builder()
+                .politicalId(user10.getPoliticalId())
+                .bloodGroup("A+")
+                .age(26)
+                .gender("Female")
+                .phoneNumber(12389012L)
+                .build();
+
+        donorRepository.saveAll(Arrays.asList(donor1, donor2, donor3, donor4, donor5, donor6, donor7, donor8, donor9, donor10));
+
+        // Seed Admins
+        Admin admin1 = Admin.builder()
+                .firstName("Admin")
+                .lastName("User")
+                .username("admin_user")
+                .politicalId(123456)
+                .password(passwordEncoder.encode("adminPass123"))
+                .role(Role.ADMIN)
+                .build();
+
+        adminRepository.save(admin1);
+
+        // Seed DonationRecords
+        DonationRecord record1 = DonationRecord.builder()
+                .politicalId(donor1.getPoliticalId())
+                .bloodBank(bloodBank1)
+                .donationDate(LocalDate.of(2025, 1, 10))
+                .build();
+
+        DonationRecord record2 = DonationRecord.builder()
+                .politicalId(donor2.getPoliticalId())
+                .bloodBank(bloodBank2)
+                .donationDate(LocalDate.of(2025, 1, 12))
+                .build();
+
+        DonationRecord record3 = DonationRecord.builder()
+                .politicalId(donor3.getPoliticalId())
+                .bloodBank(bloodBank3)
+                .donationDate(LocalDate.of(2025, 1, 15))
+                .build();
+
+        DonationRecord record4 = DonationRecord.builder()
+                .politicalId(donor4.getPoliticalId())
+                .bloodBank(bloodBank4)
+                .donationDate(LocalDate.of(2025, 1, 18))
+                .build();
+
+        DonationRecord record5 = DonationRecord.builder()
+                .politicalId(donor5.getPoliticalId())
+                .bloodBank(bloodBank1)
+                .donationDate(LocalDate.of(2025, 1, 20))
+                .build();
+
+        DonationRecord record6 = DonationRecord.builder()
+                .politicalId(donor6.getPoliticalId())
+                .bloodBank(bloodBank2)
+                .donationDate(LocalDate.of(2025, 1, 22))
+                .build();
+
+        DonationRecord record7 = DonationRecord.builder()
+                .politicalId(donor7.getPoliticalId())
+                .bloodBank(bloodBank3)
+                .donationDate(LocalDate.of(2025, 1, 25))
+                .build();
+
+        DonationRecord record8 = DonationRecord.builder()
+                .politicalId(donor8.getPoliticalId())
+                .bloodBank(bloodBank4)
+                .donationDate(LocalDate.of(2025, 1, 28))
+                .build();
+
+        DonationRecord record9 = DonationRecord.builder()
+                .politicalId(donor9.getPoliticalId())
+                .bloodBank(bloodBank1)
+                .donationDate(LocalDate.of(2025, 1, 30))
+                .build();
+
+        DonationRecord record10 = DonationRecord.builder()
+                .politicalId(donor10.getPoliticalId())
+                .bloodBank(bloodBank2)
+                .donationDate(LocalDate.of(2025, 2, 1))
+                .build();
+
+        donationRecordRepository.saveAll(Arrays.asList(record1, record2, record3, record4, record5, record6, record7, record8, record9, record10));
+    }
 }
