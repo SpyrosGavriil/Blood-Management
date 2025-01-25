@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("submit", (event) => {
       event.preventDefault();
 
+      const politicalId = document.getElementById("registerId").value;
       const firstName = document.getElementById("registerFirstName").value;
       const lastName = document.getElementById("registerLastName").value;
       const username = document.getElementById("registerUsername").value;
@@ -105,15 +106,15 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ firstName, lastName, username, password }),
+        body: JSON.stringify({ politicalId, firstName, lastName, username, password }),
       })
         .then((response) => {
           if (response.ok) {
             alert("Registration successful! You can now log in.");
             document.getElementById("registerForm").reset();
             // Switch back to login form
-            registerSection.classList.add("hidden");
-            loginSection.classList.remove("hidden");
+            document.getElementById("register").classList.add("hidden");
+            document.getElementById("login").classList.remove("hidden");
           } else {
             throw new Error("Registration failed. Please try again.");
           }

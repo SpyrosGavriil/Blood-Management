@@ -23,8 +23,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
 
     @Id
-    @Column(unique = true, nullable = false)
-    @NotNull(message = "Political ID cannot be null")
     private Integer politicalId;
 
     private String firstName;

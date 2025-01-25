@@ -30,6 +30,7 @@ public class AuthenticationService {
                                 .firstName(request.getFirstName())
                                 .lastName(request.getLastName())
                                 .username(request.getUsername())
+                                .politicalId(request.getPoliticalId())
                                 .password(passwordEncoder.encode(request.getPassword()))
                                 .role(Role.USER)
                                 .build();
