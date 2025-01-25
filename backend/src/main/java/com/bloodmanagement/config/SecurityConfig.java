@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -51,7 +49,10 @@ public class SecurityConfig {
                                                 .requestMatchers("/api/blood-banks/getAll").hasAnyRole("USER", "ADMIN")
                                                 // .requestMatchers("/api/blood-banks/getAll").permitAll()
                                                 .requestMatchers("/api/blood-banks/**").hasRole("ADMIN")
+                                                .requestMatchers("/api/donation-records/get/{id}").permitAll()
+                                                .requestMatchers("/api/donation-records/donor/{politicalId}").permitAll()
                                                 .requestMatchers("/api/donation-records/**").hasRole("ADMIN")
+                                                .requestMatchers("/api/users/get/{id}").permitAll()
                                                 .requestMatchers("/api/users/**").hasAnyRole("ADMIN")
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session

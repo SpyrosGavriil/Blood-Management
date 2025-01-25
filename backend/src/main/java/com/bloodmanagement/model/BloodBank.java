@@ -32,8 +32,8 @@ public class BloodBank {
     @Size(min = 10, max = 15, message = "Contact must be between 10 and 15 characters")
     private String contact;
 
+    @OneToMany(mappedBy = "bloodBank", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @Builder.Default
-    @OneToMany(mappedBy = "bloodBank", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DonationRecord> donationRecords = new ArrayList<>();
 
     public void addDonationRecord(DonationRecord record) {

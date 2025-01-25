@@ -81,6 +81,7 @@ public class DonationRecordService {
 
         // Set the complete BloodBank object in the donation record
         donationRecord.setBloodBank(bloodBank);
+        // bloodBank.addDonationRecord(donationRecord); // Add the donation record to the blood bank
 
         // Fetch donor details by political ID
         Optional<Donor> donorOpt = donorRepository.findByPoliticalId(donationRecord.getPoliticalId());
@@ -158,7 +159,7 @@ public class DonationRecordService {
         return new DonationRecordDTO(
                 record.getId(),
                 record.getPoliticalId(),
-                record.getDonationDate().toString(), // Map Donor to DonorDTO
-                record.getBloodBank().getName());
+                record.getBloodBank().getName(),
+                record.getDonationDate().toString()); // Map Donor to DonorDTO
     }
 }

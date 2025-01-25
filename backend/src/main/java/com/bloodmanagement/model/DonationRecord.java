@@ -22,7 +22,7 @@ public class DonationRecord {
     @JoinColumn(name = "politicalId", nullable = false)
     private Integer politicalId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "blood_bank_name", nullable = false)
     private BloodBank bloodBank;
 

@@ -51,6 +51,7 @@ public class AuthenticationService {
                         var jwtToken = jwtService.generateToken(user);
                         return AuthenticationResponse.builder()
                                         .token(jwtToken)
+                                        .politicalId(user.getPoliticalId())
                                         .build();
                 }
 
@@ -62,6 +63,7 @@ public class AuthenticationService {
                 var jwtToken = jwtService.generateToken(admin);
                 return AuthenticationResponse.builder()
                                 .token(jwtToken)
+                                .politicalId(admin.getPoliticalId())
                                 .build();
         }
 

@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await response.json();
         const token = data.token;
         localStorage.setItem("jwt", token);
+        localStorage.setItem("politicalId", data.politicalId);
 
         if (!token) {
           throw new Error("Authentication failed");

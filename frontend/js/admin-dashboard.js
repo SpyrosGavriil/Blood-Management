@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!token) {
     alert("Unauthorized access. Please log in.");
-    window.location.href = "login.html";
+    window.location.href = "../html/login.html";
     return;
   }
 
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (isTokenExpired(token)) {
     alert("Session expired! Please log in again.");
     localStorage.removeItem("jwt");
-    window.location.href = "login.html";
+    window.location.href = "../html/login.html";
   }
 
   const headers = {
@@ -35,9 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   debugLog("Request headers", headers);
-
-  // Blood Bank Table
-  const searchBloodBank = document.getElementById("searchBloodBank");
 
   // Fetch and Display Overview Data
   async function fetchOverview() {
@@ -106,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>
                         <button class="edit-btn" data-id="${bank.name}">Edit</button>
                         <button class="delete-btn" data-id="${bank.name}">Delete</button>
+                        <button class="view-donations-btn" data-id="${bank.name}">View Donations</button>
                     </td>
                 </tr>
             `
@@ -117,6 +115,52 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function viewDonationRecords(bloodBankName) {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/api/donation-records/blood-bank/${bloodBankName}`,
+        {
+          headers,
+        }
+      );
+      if (!response.ok) throw new Error("Failed to fetch donation records.");
+  
+      const donationRecords = await response.json();
+  
+      // Format the donation records for display in the modal
+      const formattedRecords = donationRecords
+        .map(
+          (record) =>
+            `<p>Date: ${record.donationDate.split("-").reverse().join("/")}, Donor: ${
+              record.politicalId
+            }</p>`
+        )
+        .join("");
+  
+      // Show the modal and populate it
+      const modal = document.getElementById("donationModal");
+      const donationRecordsContainer = document.getElementById("donationRecords");
+      donationRecordsContainer.innerHTML = formattedRecords || "No records found.";
+      modal.style.display = "block";
+    } catch (error) {
+      console.error(`Error fetching donation records for ${bloodBankName}:`, error);
+      alert("Unable to load donation records. Please try again.");
+    }
+  }
+  
+  // Close Modal Logic
+  document.getElementById("closeModal").addEventListener("click", () => {
+    document.getElementById("donationModal").style.display = "none";
+  });
+  
+  // Close modal when clicking outside the modal
+  window.addEventListener("click", (event) => {
+    const modal = document.getElementById("donationModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+  
   // Donor Management Elements
   const donorTableBody = document.getElementById("donorTableBody");
 
@@ -208,9 +252,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Handle Blood Bank Actions
   const bloodBankTableBody = document.getElementById("bloodBankTableBody");
+
   bloodBankTableBody.addEventListener("click", async (event) => {
-    if (event.target.classList.contains("delete-btn")) {
-      const name = event.target.dataset.id;
+    const target = event.target;
+  
+    if (target.classList.contains("view-donations-btn")) {
+      const bloodBankName = target.dataset.id;
+      await viewDonationRecords(bloodBankName);
+    }
+  });
+  
+
+  bloodBankTableBody.addEventListener("click", async (event) => {
+    const target = event.target; // Define target from the event
+
+    // Handle Delete Button Click
+    if (target.classList.contains("delete-btn")) {
+      const name = target.dataset.id;
       if (confirm("Are you sure you want to delete this blood bank?")) {
         try {
           await fetch(`${BASE_URL}/api/blood-banks/delete/${name}`, {
@@ -504,17 +562,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const adminTableBody = document.getElementById("adminTableBody");
 
-// Fetch and Display Admins
-async function fetchAdmins(query = "") {
-  try {
-    const url = query
-      ? `${BASE_URL}/api/admins/get/${query}`
-      : `${BASE_URL}/api/admins/getAll`;
-    const admins = await fetch(url, { headers }).then(handleErrors);
+  // Fetch and Display Admins
+  async function fetchAdmins(query = "") {
+    try {
+      const url = query
+        ? `${BASE_URL}/api/admins/get/${query}`
+        : `${BASE_URL}/api/admins/getAll`;
+      const admins = await fetch(url, { headers }).then(handleErrors);
 
-    adminTableBody.innerHTML = admins
-      .map(
-        (admin) => `
+      adminTableBody.innerHTML = admins
+        .map(
+          (admin) => `
         <tr>
           <td>${admin.politicalId}</td>
           <td>${admin.firstName}</td>
@@ -526,93 +584,99 @@ async function fetchAdmins(query = "") {
           </td>
         </tr>
       `
-      )
-      .join("");
-  } catch (error) {
-    console.error("Admin fetch error:", error);
-    alert("Failed to load admins.");
-  }
-}
-
-// Handle Admin Actions (Edit and Delete)
-adminTableBody.addEventListener("click", async (event) => {
-  const target = event.target;
-
-  if (target.classList.contains("delete-btn")) {
-    const id = target.dataset.id;
-    if (confirm("Are you sure you want to delete this admin?")) {
-      try {
-        await fetch(`${BASE_URL}/api/admins/delete/${id}`, {
-          method: "DELETE",
-          headers,
-        });
-        alert("Admin deleted successfully.");
-        fetchAdmins(); // Refresh table
-      } catch (error) {
-        console.error("Admin delete error:", error);
-        alert("Failed to delete admin.");
-      }
+        )
+        .join("");
+    } catch (error) {
+      console.error("Admin fetch error:", error);
+      alert("Failed to load admins.");
     }
   }
 
-  if (target.classList.contains("edit-btn")) {
-    const id = target.dataset.id;
-    const newFirstName = prompt("Enter new First Name:");
-    const newLastName = prompt("Enter new Last Name:");
-    const newUsername = prompt("Enter new Username:");
+  // Handle Admin Actions (Edit and Delete)
+  adminTableBody.addEventListener("click", async (event) => {
+    const target = event.target;
 
-    if (newFirstName && newLastName) {
-      try {
-        await fetch(`${BASE_URL}/api/admins/update/${id}`, {
-          method: "PUT",
-          headers: {
-            ...headers,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            firstName: newFirstName,
-            lastName: newLastName,
-            username: newUsername,
-          }),
-        });
-        alert("Admin updated successfully.");
-        fetchAdmins(); // Refresh table
-      } catch (error) {
-        console.error("Admin update error:", error);
-        alert("Failed to update admin.");
+    if (target.classList.contains("delete-btn")) {
+      const id = target.dataset.id;
+      if (confirm("Are you sure you want to delete this admin?")) {
+        try {
+          await fetch(`${BASE_URL}/api/admins/delete/${id}`, {
+            method: "DELETE",
+            headers,
+          });
+          alert("Admin deleted successfully.");
+          fetchAdmins(); // Refresh table
+        } catch (error) {
+          console.error("Admin delete error:", error);
+          alert("Failed to delete admin.");
+        }
       }
     }
-  }
-});
 
-// Add New Admin
-document.getElementById("newAdminButton").addEventListener("click", () => {
-  const firstName = prompt("Enter First Name:");
-  const lastName = prompt("Enter Last Name:");
-  const politicalId = prompt("Enter Political ID:");
-  const username = prompt("Enter Username:");
-  const password = prompt("Enter Password:");
+    if (target.classList.contains("edit-btn")) {
+      const id = target.dataset.id;
+      const newFirstName = prompt("Enter new First Name:");
+      const newLastName = prompt("Enter new Last Name:");
+      const newUsername = prompt("Enter new Username:");
 
-  if (firstName && lastName && username && password) {
-    fetch(`${BASE_URL}/api/admins/create`, {
-      method: "POST",
-      headers: {
-        ...headers,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ politicalId, firstName, lastName, username, password }),
-    })
-      .then(handleErrors)
-      .then(() => {
-        alert("Admin created successfully!");
-        fetchAdmins(); // Refresh table
+      if (newFirstName && newLastName) {
+        try {
+          await fetch(`${BASE_URL}/api/admins/update/${id}`, {
+            method: "PUT",
+            headers: {
+              ...headers,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              firstName: newFirstName,
+              lastName: newLastName,
+              username: newUsername,
+            }),
+          });
+          alert("Admin updated successfully.");
+          fetchAdmins(); // Refresh table
+        } catch (error) {
+          console.error("Admin update error:", error);
+          alert("Failed to update admin.");
+        }
+      }
+    }
+  });
+
+  // Add New Admin
+  document.getElementById("newAdminButton").addEventListener("click", () => {
+    const firstName = prompt("Enter First Name:");
+    const lastName = prompt("Enter Last Name:");
+    const politicalId = prompt("Enter Political ID:");
+    const username = prompt("Enter Username:");
+    const password = prompt("Enter Password:");
+
+    if (firstName && lastName && username && password) {
+      fetch(`${BASE_URL}/api/admins/create`, {
+        method: "POST",
+        headers: {
+          ...headers,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          politicalId,
+          firstName,
+          lastName,
+          username,
+          password,
+        }),
       })
-      .catch((error) => {
-        console.error("Error creating admin:", error);
-        alert("Failed to create admin.");
-      });
-  }
-});
+        .then(handleErrors)
+        .then(() => {
+          alert("Admin created successfully!");
+          fetchAdmins(); // Refresh table
+        })
+        .catch((error) => {
+          console.error("Error creating admin:", error);
+          alert("Failed to create admin.");
+        });
+    }
+  });
 
   // Initial Load
   fetchOverview();

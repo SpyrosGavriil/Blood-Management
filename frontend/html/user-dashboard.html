@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="../css/user-dashboard.css" />
+</head>
+<body>
+  <header>
+    <h1>Welcome, <span id="userName">User</span></h1>
+    <button id="logoutButton">Logout</button>
+  </header>
+
+  <main>
+    <!-- Overview Section -->
+    <h2>Overview</h2>
+    <section id="overview">
+      <div class="overview-card">
+        <h3>Total Donations</h3>
+        <p id="totalDonations">0</p>
+      </div>
+      <div class="overview-card">
+        <h3>Total Blood Banks</h3>
+        <p id="totalBloodBanks">0</p>
+      </div>
+    </section>
+
+    <!-- Blood Banks Section -->
+    <section id="bloodBanks">
+      <h2>Blood Banks</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody id="bloodBanksTable">
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Donation History Section -->
+    <section id="donationHistory">
+      <h2>Donation History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Blood Bank</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="donationHistoryTable">
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="../js/user-dashboard.js"></script>
+</body>
+</html>

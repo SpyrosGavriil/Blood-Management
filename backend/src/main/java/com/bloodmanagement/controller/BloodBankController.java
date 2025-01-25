@@ -5,9 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.bloodmanagement.dto.BloodBankDTO;
-import com.bloodmanagement.dto.DonorDTO;
 import com.bloodmanagement.model.BloodBank;
-import com.bloodmanagement.model.Donor;
 import com.bloodmanagement.service.BloodBankService;
 
 import java.util.List;
