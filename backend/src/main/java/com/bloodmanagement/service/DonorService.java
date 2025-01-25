@@ -11,8 +11,6 @@ import com.bloodmanagement.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.time.LocalDate;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

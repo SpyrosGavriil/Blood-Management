@@ -21,7 +21,6 @@ public class DatabaseSeeder {
         private final DonorRepository donorRepository;
         private final AdminRepository adminRepository;
         private final BloodBankRepository bloodBankRepository;
-        private final DonationRecordRepository donationRecordRepository;
         private final PasswordEncoder passwordEncoder;
         private final DonationRecordController donationRecordController;
 
