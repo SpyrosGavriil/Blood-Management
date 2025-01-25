@@ -16,7 +16,10 @@ import lombok.NoArgsConstructor;
 public class DonationRecord {
 
     @Id
-    @JoinColumn(name = "politicalId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generated primary key
+    private Long id; // Unique for each record
+
+    @JoinColumn(name = "politicalId", nullable = false)
     private Integer politicalId;
 
     @ManyToOne

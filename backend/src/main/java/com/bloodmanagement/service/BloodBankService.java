@@ -37,9 +37,22 @@ public class BloodBankService {
     }
 
     // Create or update a blood bank and return as BloodBankDTO
-    public BloodBankDTO createOrUpdateBloodBank(BloodBank bloodBank) {
+    public BloodBankDTO createBloodBank(BloodBank bloodBank) {
         BloodBank savedBloodBank = bloodBankRepository.save(bloodBank);
         return toBloodBankDTO(savedBloodBank);
+    }
+
+    public BloodBankDTO updateBloodBank(BloodBank bloodBank) {
+        // Check if the blood bank exists
+        BloodBank existingBloodBank = bloodBankRepository.findByName(bloodBank.getName())
+                .orElseThrow(() -> new RuntimeException("Blood bank with name " + bloodBank.getName() + " not found"));
+
+        // Update details
+        existingBloodBank.setLocation(bloodBank.getLocation());
+        existingBloodBank.setContact(bloodBank.getContact());
+
+        // Save and return the updated entity
+        return toBloodBankDTO(bloodBankRepository.save(existingBloodBank));
     }
 
     // Delete a blood bank by name

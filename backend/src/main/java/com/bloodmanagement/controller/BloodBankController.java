@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.bloodmanagement.dto.BloodBankDTO;
+import com.bloodmanagement.dto.DonorDTO;
 import com.bloodmanagement.model.BloodBank;
+import com.bloodmanagement.model.Donor;
 import com.bloodmanagement.service.BloodBankService;
 
 import java.util.List;
@@ -32,9 +34,14 @@ public class BloodBankController {
         return ResponseEntity.ok(bloodBank);
     }
 
-    @PostMapping("/update")
+    @PostMapping("/create")
     public BloodBankDTO createOrUpdateBloodBank(@RequestBody BloodBank bloodBank) {
-        return bloodBankService.createOrUpdateBloodBank(bloodBank);
+        return bloodBankService.createBloodBank(bloodBank);
+    }
+
+    @PostMapping("/update")
+    public BloodBankDTO updateDonor(@RequestBody BloodBank bloodBank) {
+        return bloodBankService.updateBloodBank(bloodBank);
     }
 
     @DeleteMapping("/delete/{name}")

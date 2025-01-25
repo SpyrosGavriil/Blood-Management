@@ -46,6 +46,9 @@
               placeholder="Search Blood Banks"
             />
             <button id="searchButton">Search</button>
+            <button id="newBloodBankButton" class="new-btn">
+              New Blood Bank
+            </button>
           </div>
           <div class="blood-bank-table-container">
             <table class="blood-bank-table">
@@ -80,7 +83,7 @@
                   <th>Blood Type</th>
                   <th>Age</th>
                   <th>Last Donation</th>
-                  <th>Status</th>
+                  <th>Gender</th>
                   <th>Contact</th>
                   <th>Actions</th>
                 </tr>
@@ -102,6 +105,9 @@
               placeholder="Search Donation Records"
             />
             <button id="donationSearchButton">Search</button>
+            <button id="newDonationRecordButton" class="new-btn">
+              New Donation Record
+            </button>
           </div>
           <div class="donation-records-table-container">
             <table class="donation-record-table">
@@ -114,6 +120,31 @@
                 </tr>
               </thead>
               <tbody id="donationRecordTableBody" class="table-body-scroll">
+                <!-- Dynamic rows will be added here -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <!-- Admin Management Section -->
+        <section class="admin-management-section">
+          <h2>Admin Management</h2>
+          <div class="search-container">
+            <input type="text" id="searchAdmin" placeholder="Search Admins" />
+            <button id="adminSearchButton">Search</button>
+            <button id="newAdminButton" class="new-btn">New Admin</button>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Political ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Username</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminTableBody" class="table-body-scroll">
                 <!-- Dynamic rows will be added here -->
               </tbody>
             </table>

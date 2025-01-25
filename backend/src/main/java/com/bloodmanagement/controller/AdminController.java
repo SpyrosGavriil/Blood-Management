@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admins")
@@ -30,7 +31,7 @@ public class AdminController {
     @GetMapping("/get/{id}")
     public ResponseEntity<AdminDTO> getAdminById(@PathVariable Integer id) {
         return adminService.getAdminById(id)
-                .map(ResponseEntity::ok)
+                .map(admin -> ResponseEntity.ok(toAdminDTO(admin)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -44,11 +45,23 @@ public class AdminController {
     // Update an existing admin
     @PutMapping("/update/{id}")
     public ResponseEntity<AdminDTO> updateAdmin(@PathVariable Integer id, @RequestBody Admin admin) {
-        if (!adminService.getAdminById(id).isPresent()) {
+        Optional<Admin> existingAdminOpt = adminService.getAdminById(id);
+        if (!existingAdminOpt.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        admin.setPoliticalId(id);
-        AdminDTO updatedAdmin = adminService.saveAdmin(admin);
+
+        Admin existingAdmin = existingAdminOpt.get();
+
+        // Update the values
+        existingAdmin.setFirstName(admin.getFirstName());
+        existingAdmin.setLastName(admin.getLastName());
+        existingAdmin.setUsername(admin.getUsername());
+        existingAdmin.setRole(admin.getRole());
+
+        // Retain the existing password
+        existingAdmin.setPassword(existingAdmin.getPassword());
+
+        AdminDTO updatedAdmin = adminService.saveAdmin(existingAdmin);
         return ResponseEntity.ok(updatedAdmin);
     }
 
@@ -60,5 +73,16 @@ public class AdminController {
         }
         adminService.deleteAdmin(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Convert Admin entity to AdminDTO
+    private AdminDTO toAdminDTO(Admin admin) {
+        return new AdminDTO(
+                admin.getPoliticalId(),
+                admin.getFirstName(),
+                admin.getLastName(),
+                admin.getUsername(),
+                admin.getRole().toString()
+        );
     }
 }

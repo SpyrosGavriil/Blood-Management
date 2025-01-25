@@ -11,6 +11,8 @@ import com.bloodmanagement.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,7 +48,22 @@ public class DonorService {
         return toDonorDTO(savedDonor);
     }
 
-    // Delete a donor by ID
+    public Donor updateDonor(Donor donor) {
+        // Check if the donor exists
+        Donor existingDonor = donorRepository.findByPoliticalId(donor.getPoliticalId())
+                .orElseThrow(() -> new RuntimeException("Donor with ID " + donor.getPoliticalId() + " not found"));
+
+        // Update details
+        existingDonor.setBloodGroup(donor.getBloodGroup());
+        existingDonor.setPhoneNumber(donor.getPhoneNumber());
+        existingDonor.setLastDonationDate(donor.getLastDonationDate());
+        existingDonor.setAge(donor.getAge());
+        existingDonor.setGender(donor.getGender());
+
+        // Save and return the updated entity
+        return donorRepository.save(existingDonor);
+    }
+
     public void deleteDonor(Integer id) {
         if (!donorRepository.existsById(id)) {
             throw new IllegalArgumentException("Donor not found with ID: " + id);
@@ -69,7 +86,6 @@ public class DonorService {
                 donor.getAge(),
                 donor.getGender(),
                 donor.getLastDonationDate(), // Map User to UserDTO
-                donor.getPhoneNumber()
-        );
+                donor.getPhoneNumber());
     }
 }

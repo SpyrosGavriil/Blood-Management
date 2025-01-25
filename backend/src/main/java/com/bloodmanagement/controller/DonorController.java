@@ -34,6 +34,11 @@ public class DonorController {
         return donorService.createDonor(donor);
     }
 
+    @PostMapping("/update")
+    public DonorDTO updateDonor(@RequestBody Donor donor) {
+        return donorService.createDonor(donor);
+    }
+
     @DeleteMapping("/delete/{id}")
     public void deleteDonor(@PathVariable Integer id) {
         donorService.deleteDonor(id);

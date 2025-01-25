@@ -1,6 +1,7 @@
 package com.bloodmanagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.bloodmanagement.dto.DonationRecordDTO;
@@ -45,8 +46,14 @@ public class DonationRecordController {
         return donationRecordService.createDonationRecord(donationRecord);
     }
 
-    @DeleteMapping("delete/{id}")
-    public void deleteDonationRecord(@PathVariable Long id) {
-        donationRecordService.deleteDonationRecord(id);
+    @PostMapping("/update")
+    public DonationRecordDTO updateDonationRecord(@RequestBody DonationRecord record) {
+        return donationRecordService.updateDonationRecord(record);
     }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<Void> deleteDonationRecord(@PathVariable Long id) {
+    donationRecordService.deleteDonationRecord(id);
+    return ResponseEntity.noContent().build();
+}
 }

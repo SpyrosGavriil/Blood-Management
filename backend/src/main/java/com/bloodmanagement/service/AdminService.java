@@ -33,9 +33,8 @@ public class AdminService {
     }
 
     // Get an admin by ID and return as AdminDTO
-    public Optional<AdminDTO> getAdminById(Integer id) {
-        return adminRepository.findById(id)
-                .map(this::toAdminDTO); // Map Admin to AdminDTO
+    public Optional<Admin> getAdminById(Integer id) {
+        return adminRepository.findById(id);
     }
 
     // Create or update an admin and return as AdminDTO

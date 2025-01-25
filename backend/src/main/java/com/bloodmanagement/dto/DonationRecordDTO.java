@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DonationRecordDTO {
+    private Long id;
     private Integer politicalId;
     private String bloodBankName; // Only the name of the blood bank
     private String donationDate; // Formatted as String for easier handling
