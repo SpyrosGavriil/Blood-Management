@@ -144,8 +144,8 @@ public class DatabaseSeeder {
                                 .role(Role.USER)
                                 .build();
 
-                userRepository.saveAll(
-                                Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10));
+                List<User> users = Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10);
+                userRepository.saveAll(users);
 
                 Donor donor1 = Donor.builder()
                                 .politicalId(user1.getPoliticalId())
@@ -243,69 +243,112 @@ public class DatabaseSeeder {
                 adminRepository.save(admin1);
 
                 List<DonationRecord> donationRecords = Arrays.asList(
-                                // Seed DonationRecords
+                                // Donations for Donor 1
                                 DonationRecord.builder()
                                                 .politicalId(donor1.getPoliticalId())
                                                 .bloodBank(bloodBank1)
                                                 .donationDate(LocalDate.of(2025, 1, 10))
                                                 .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor1.getPoliticalId())
+                                                .bloodBank(bloodBank2)
+                                                .donationDate(LocalDate.of(2025, 2, 5))
+                                                .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor1.getPoliticalId())
+                                                .bloodBank(bloodBank3)
+                                                .donationDate(LocalDate.of(2025, 3, 1))
+                                                .build(),
 
+                                // Donations for Donor 2
                                 DonationRecord.builder()
                                                 .politicalId(donor2.getPoliticalId())
                                                 .bloodBank(bloodBank2)
                                                 .donationDate(LocalDate.of(2025, 1, 12))
                                                 .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor2.getPoliticalId())
+                                                .bloodBank(bloodBank4)
+                                                .donationDate(LocalDate.of(2025, 2, 10))
+                                                .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor2.getPoliticalId())
+                                                .bloodBank(bloodBank1)
+                                                .donationDate(LocalDate.of(2025, 3, 8))
+                                                .build(),
 
+                                // Donations for Donor 3
                                 DonationRecord.builder()
                                                 .politicalId(donor3.getPoliticalId())
                                                 .bloodBank(bloodBank3)
                                                 .donationDate(LocalDate.of(2025, 1, 15))
                                                 .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor3.getPoliticalId())
+                                                .bloodBank(bloodBank1)
+                                                .donationDate(LocalDate.of(2025, 2, 20))
+                                                .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor3.getPoliticalId())
+                                                .bloodBank(bloodBank2)
+                                                .donationDate(LocalDate.of(2025, 3, 25))
+                                                .build(),
 
+                                // Donations for Donor 4
                                 DonationRecord.builder()
                                                 .politicalId(donor4.getPoliticalId())
                                                 .bloodBank(bloodBank4)
                                                 .donationDate(LocalDate.of(2025, 1, 18))
                                                 .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor4.getPoliticalId())
+                                                .bloodBank(bloodBank3)
+                                                .donationDate(LocalDate.of(2025, 2, 18))
+                                                .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor4.getPoliticalId())
+                                                .bloodBank(bloodBank2)
+                                                .donationDate(LocalDate.of(2025, 3, 18))
+                                                .build(),
 
+                                // Donations for Donor 5
                                 DonationRecord.builder()
                                                 .politicalId(donor5.getPoliticalId())
                                                 .bloodBank(bloodBank1)
                                                 .donationDate(LocalDate.of(2025, 1, 20))
                                                 .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor5.getPoliticalId())
+                                                .bloodBank(bloodBank2)
+                                                .donationDate(LocalDate.of(2025, 2, 24))
+                                                .build(),
+                                DonationRecord.builder()
+                                                .politicalId(donor5.getPoliticalId())
+                                                .bloodBank(bloodBank3)
+                                                .donationDate(LocalDate.of(2025, 3, 28))
+                                                .build(),
 
+                                // Donations for Donor 6
                                 DonationRecord.builder()
                                                 .politicalId(donor6.getPoliticalId())
                                                 .bloodBank(bloodBank2)
                                                 .donationDate(LocalDate.of(2025, 1, 22))
                                                 .build(),
-
                                 DonationRecord.builder()
-                                                .politicalId(donor7.getPoliticalId())
-                                                .bloodBank(bloodBank3)
-                                                .donationDate(LocalDate.of(2025, 1, 25))
-                                                .build(),
-
-                                DonationRecord.builder()
-                                                .politicalId(donor8.getPoliticalId())
-                                                .bloodBank(bloodBank4)
-                                                .donationDate(LocalDate.of(2025, 1, 28))
-                                                .build(),
-
-                                DonationRecord.builder()
-                                                .politicalId(donor9.getPoliticalId())
+                                                .politicalId(donor6.getPoliticalId())
                                                 .bloodBank(bloodBank1)
-                                                .donationDate(LocalDate.of(2025, 1, 30))
+                                                .donationDate(LocalDate.of(2025, 2, 10))
                                                 .build(),
-
                                 DonationRecord.builder()
-                                                .politicalId(donor10.getPoliticalId())
-                                                .bloodBank(bloodBank2)
-                                                .donationDate(LocalDate.of(2025, 2, 1))
+                                                .politicalId(donor6.getPoliticalId())
+                                                .bloodBank(bloodBank4)
+                                                .donationDate(LocalDate.of(2025, 3, 14))
                                                 .build());
+
                 // Loop to create all donation records
                 for (DonationRecord record : donationRecords) {
                         donationRecordController.createDonationRecord(record);
                 }
+
         }
 }

@@ -44,10 +44,8 @@ public class SecurityConfig {
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/auth/**").permitAll()
                                                 .requestMatchers("/api/admins/**").hasRole("ADMIN")
-                                                // .requestMatchers("/api/admins/**").permitAll()
                                                 .requestMatchers("/api/donors/**").hasRole("ADMIN")
                                                 .requestMatchers("/api/blood-banks/getAll").hasAnyRole("USER", "ADMIN")
-                                                // .requestMatchers("/api/blood-banks/getAll").permitAll()
                                                 .requestMatchers("/api/blood-banks/**").hasRole("ADMIN")
                                                 .requestMatchers("/api/donation-records/get/{id}").permitAll()
                                                 .requestMatchers("/api/donation-records/donor/{politicalId}").permitAll()
