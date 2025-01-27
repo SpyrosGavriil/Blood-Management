@@ -1,9 +1,30 @@
-
 # Blood Management System
 
 A web-based application for managing blood donations and blood banks efficiently. This system provides an interface for users to view their donation history and available blood banks, while admins can manage blood banks, donors, donation records, and register new admins.
 
+## 💻 Tech Stack
+
+### Back-end
+
+- **Java (Spring Boot)** – Powers the RESTful APIs and manages the core functionality of the Blood Management System.
+- **MySQL** – A relational database used to store information about users, admins, donors, donation records, and blood banks.
+- **JPA (Java Persistence API)** – Simplifies database interactions using ORM (Object-Relational Mapping) through `JpaRepository` for CRUD operations.
+- **Maven** – Handles dependency management and automates project builds.
+- **Spring Security** - Provides security features, including authentication and authorization for the system.
+- **JWT (JSON Web Tokens)** - Ensures secure user authentication and session management through token-based authentication.
+
+### Front-end
+
+- **HTML5** - Structures the web application, including forms and tables to manage blood donation-related tasks.
+- **CSS3** - Styles the web interface to make it visually appealing and user-friendly..
+- **JavaScript (Vanilla JS)** - Adds dynamic interactivity on the client side for features like form submissions and data visualization.
+
+### Tools & Utilities
+
+- **Postman** – For testing and verifying API endpoints during development.
+
 ## Features
+
 - **Users:**
   - View donation history and total donations.
   - Browse available blood banks.
@@ -13,21 +34,17 @@ A web-based application for managing blood donations and blood banks efficiently
 - **Security:**
   - JWT-based authentication and authorization.
 
-## Tech Stack
-- **Backend:** Java, Spring Boot, Spring Security
-- **Frontend:** HTML, CSS, JavaScript
-- **Database:** MySQL
-- **Authentication:** JWT (JSON Web Token)
-
 ## Installation
 
 1. **Clone the Repository:**
+
    ```bash
    git clone https://github.com/SpyrosGavriil/Blood-Management.git
    cd Blood-Management
    ```
 
 2. **Backend Setup:**
+
    - Install Java 17 or higher.
    - Install Maven.
    - Update the `application.properties` file with your MySQL credentials:
@@ -42,6 +59,7 @@ A web-based application for managing blood donations and blood banks efficiently
      ```
 
 3. **Database Setup:**
+
    - Create a MySQL database named `bloodmanagement`.
    - The database will be automatically seeded with data when the application starts.
 
@@ -51,6 +69,7 @@ A web-based application for managing blood donations and blood banks efficiently
 ## Usage
 
 1. **Login:**
+
    - Use the `/api/auth/login` endpoint to authenticate.
    - Copy the JWT token from the response.
 
