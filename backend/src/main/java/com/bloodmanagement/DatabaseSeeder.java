@@ -59,7 +59,7 @@ public class DatabaseSeeder {
                                 .lastName("Doe")
                                 .username("john_doe")
                                 .politicalId(123456)
-                                .password(passwordEncoder.encode("password123"))
+                                .password(passwordEncoder.encode("M3rcury#2025!"))
                                 .role(Role.USER)
                                 .build();
 

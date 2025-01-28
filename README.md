@@ -23,7 +23,7 @@ A web-based application for managing blood donations and blood banks efficiently
 
 - **Postman** – For testing and verifying API endpoints during development.
 
-## Features
+## ✨ Features
 
 - **Users:**
   - View donation history and total donations.
@@ -34,7 +34,11 @@ A web-based application for managing blood donations and blood banks efficiently
 - **Security:**
   - JWT-based authentication and authorization.
 
-## Installation
+## 👀 Preview
+
+[Watch on YouTube](https://www.youtube.com/watch?v=RFmE6xdIeuE&ab_channel=PanagiotisTsembekis)
+
+## ⚙️ Installation
 
 1. **Clone the Repository:**
 
